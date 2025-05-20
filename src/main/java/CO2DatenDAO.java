@@ -13,21 +13,6 @@ public class CO2DatenDAO {
         return alleDaten;
     }
     
-    public void saveAll(List<CO2Daten> liste) {
-        EntityManager em = emf.createEntityManager();
-        EntityTransaction t = em.getTransaction();
-        t.begin();
-        for (CO2Daten d : liste) {
-            if (d.getId() == 0) {
-                em.persist(d);  // Neuer Datensatz
-            } else {
-                em.merge(d);    // Bestehender Datensatz
-            }
-        }
-        t.commit();
-        em.close();
-    }
-    
     public void remove(CO2Daten eintrag) {
         EntityManager em = emf.createEntityManager();
         EntityTransaction t = em.getTransaction();
@@ -37,6 +22,21 @@ public class CO2DatenDAO {
         t.commit();
         em.close();
     }
-  
+    
+    public void saveAll(List<CO2Daten> liste) {
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction t = em.getTransaction();
+        t.begin();
+        for (CO2Daten d : liste) {
+            if (d.getId() == 0) {
+                em.persist(d);
+            } else {
+                em.merge(d);   
+            }
+        }
+        t.commit();
+        em.close();
+    }
+   
 }
 
